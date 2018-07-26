@@ -1,7 +1,7 @@
 window.onload = () => {
   findPlaces();
 };
-
+let watchPosition = null;
 var platform = new H.service.Platform({
   app_id: 'KbDHjNISMuVTjdoKmgxY', // // <-- ENTER YOUR APP ID HERE
   app_code: 'XeXXApChvfAPneASBW_6zg', // <-- ENTER YOUR APP CODE HERE
@@ -74,13 +74,11 @@ function updatePosition(event) {
   map.addObject(marker);
   map.setCenter(HEREHQcoordinates);
 }
-
 navigator.geolocation.watchPosition(updatePosition);
 
 function findPlaces() {
   // Fetch retorna una promesa
-  fetch(`https://places.cit.api.here.com/places/v1/discover/explore?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=currentPosition.coords.latitude,currentPosition.coords.longitude&pretty
-`)
+  fetch(`https://places.cit.api.here.com/places/v1/discover/explore?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${watchPosition.coords.latitude},${watchPosition.coords.longitude}&pretty`)
     .then(response => response.json())
     .then(explorer => {
       console.log(explorer);
