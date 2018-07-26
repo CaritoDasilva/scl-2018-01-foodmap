@@ -1,0 +1,10 @@
+    #mapContainer {
+      margin: auto;
+      width: 50vw;
+      height: 50vh;
+      position: relative;
+    }
+
+    #filterInput {
+      margin-top: 10%;
+    }
