@@ -1,6 +1,6 @@
-window.onload = () => {
-  findPlaces();
-};
+// window.onload = () => {
+//   findPlaces();
+// };
 let watchPosition = null;
 var platform = new H.service.Platform({
   app_id: 'KbDHjNISMuVTjdoKmgxY', // // <-- ENTER YOUR APP ID HERE
@@ -61,11 +61,8 @@ var markerOptions = {
 var marker = new H.map.Marker(coordinates, markerOptions);
 map.addObject(marker);
 
-
-// Acá vamos a poner la función que ubica el dispositivo del usuario
-
 function updatePosition(event) {
-  let HEREHQcoordinates = {
+  HEREHQcoordinates = {
     lat: event.coords.latitude,
     lng: event.coords.longitude
   };
@@ -76,11 +73,10 @@ function updatePosition(event) {
 }
 navigator.geolocation.watchPosition(updatePosition);
 
-function findPlaces() {
-  // Fetch retorna una promesa
-  fetch(`https://places.cit.api.here.com/places/v1/discover/explore?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${watchPosition.coords.latitude},${watchPosition.coords.longitude}&pretty`)
+searchBtn.addEventListener("click", () => {
+  fetch(`https://places.cit.api.here.com/places/v1/discover/explore?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${HEREHQcoordinates.lat},${HEREHQcoordinates.lng}&pretty`)
     .then(response => response.json())
     .then(explorer => {
-      console.log(explorer);
+      console.log(explorer.results.items);
     });
-}
+});
