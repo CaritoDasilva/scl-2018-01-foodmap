@@ -58,6 +58,7 @@ var markerOptions = {
   icon: new H.map.Icon(iconUrl, iconOptions)
 };
 
+var markers = [];
 var marker = new H.map.Marker(coordinates, markerOptions);
 map.addObject(marker);
 
@@ -74,10 +75,24 @@ function updatePosition(event) {
 navigator.geolocation.watchPosition(updatePosition);
 
 searchBtn.addEventListener("click", () => {
-  fetch(`https://places.cit.api.here.com/places/v1/discover/explore?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${HEREHQcoordinates.lat},${HEREHQcoordinates.lng}&pretty`)
+  // console.log(explorer);
+  map.removeObjects(markers); //remueve marcadores cuando cambias de geolocalización
+  markers = []; //almacena los marcadores 
+  fetch(`https://places.cit.api.here.com/places/v1/discover/search?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${HEREHQcoordinates.lat},${HEREHQcoordinates.lng}&pretty&q=${inputSearching.value}`)
     .then(response => response.json())
     .then(explorer => {
-      // explorer.results.items.forEach(item) {
-      console.log(explorer);
+      explorer.results.items.forEach((item) => {
+        //recorrer items para la info de los restaurantes
+        console.log(explorer);
+
+
+        let coords = {
+          lng: item.position[1],
+          lat: item.position[0]
+        }
+        var marker = new H.map.Marker(coords);
+        markers.push(marker);
+        map.addObject(marker);
+      });
     })
 });
