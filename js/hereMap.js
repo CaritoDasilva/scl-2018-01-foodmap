@@ -33,6 +33,7 @@ var mapOptions = {
   zoom: 14
 }
 
+// Se inicializa el mapa
 var map = new H.Map(
   mapContainer,
   defaultLayers.normal.map,
@@ -81,8 +82,8 @@ searchBtn.addEventListener("click", () => {
   fetch(`https://places.cit.api.here.com/places/v1/discover/search?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${HEREHQcoordinates.lat},${HEREHQcoordinates.lng}&pretty&q=${inputSearching.value}`)
     .then(response => response.json())
     .then(explorer => {
+      //recorrer items para la info de los restaurantes
       explorer.results.items.forEach((item) => {
-        //recorrer items para la info de los restaurantes
         console.log(explorer);
 
 
