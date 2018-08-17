@@ -42,10 +42,11 @@ var map = new H.Map(
 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map)); //mueve el mapa, lo hace interactivo
 // Agrego un marcador
 
-var marker = new H.map.Marker(coordinates);
-map.addObject(marker);
 
 var iconUrl = './images/marker-gelato.svg';
+
+// Se inicializa la UI
+var ui = H.ui.UI.createDefault(map, defaultLayers, 'es-ES');
 
 var iconOptions = {
   // The icon's size in pixel:
@@ -69,7 +70,7 @@ function updatePosition(event) {
     lng: event.coords.longitude
   };
 
-  var marker = new H.map.Marker(HEREHQcoordinates);
+  let marker = new H.map.Marker(HEREHQcoordinates);
   map.addObject(marker);
   map.setCenter(HEREHQcoordinates);
 }
@@ -84,16 +85,31 @@ searchBtn.addEventListener("click", () => {
     .then(explorer => {
       //recorrer items para la info de los restaurantes
       explorer.results.items.forEach((item) => {
-        console.log(explorer);
+        console.log(item);
 
 
         let coords = {
           lng: item.position[1],
-          lat: item.position[0]
+          lat: item.position[0],
         }
-        var marker = new H.map.Marker(coords);
+
+        let id = {
+          id: item.id
+        }
+        console.log(id);
+
+        let marker = new H.map.Marker(coords, id);
         markers.push(marker);
         map.addObject(marker);
+        console.log(marker);
+
+        // Create an info bubble object at a specific geographic location:
+        var bubble = new H.ui.InfoBubble(coords, {
+          content: '<b>Hello World!</b>'
+        });
+
+        // Add info bubble to the UI:
+        ui.addBubble(bubble);
       });
     })
 });
