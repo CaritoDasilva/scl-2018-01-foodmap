@@ -33,7 +33,7 @@ var mapOptions = {
 
 // Se inicializa el mapa
 var map = new H.Map(
-  mapContainer,
+  mapPlaceholder,
   defaultLayers.normal.map,
   mapOptions);
 
