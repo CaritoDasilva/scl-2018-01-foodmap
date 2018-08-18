@@ -5,14 +5,14 @@
 }
 
 .container-fluid {
-  background-image: url(/css/imagenes/fondo.jpg);
+  background-image: url(../css/imagenes/fondo.jpg);
   display: none;
 }
 
 #mapContainer {
   margin: auto;
-  width: 50vw;
-  height: 50vh;
+  width: 60vw;
+  height: 60vh;
   position: relative;
 }
 
@@ -22,7 +22,7 @@
 
 #title {
   font-family: 'Abril Fatface', cursive;
-  font-size: 10vh;
+  font-size: 20vh;
   text-align: center;
   margin: 5%;
   color: white;
