@@ -12,6 +12,7 @@ function addInfoBubble(map) {
     map.removeObjects(markers);
   });
   markers = [];
+  // recorrer items para la info de los restaurantes
   placesList.results.items.forEach((item) => {
     var group = new H.map.Group();
     console.log(group);
