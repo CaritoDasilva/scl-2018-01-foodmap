@@ -88,7 +88,6 @@ searchBtn.addEventListener('click', () => {
       console.log(placesList);
       addInfoBubble(map);
 
-      // recorrer items para la info de los restaurantes
 
     });
 });
