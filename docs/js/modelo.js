@@ -1,6 +1,4 @@
 function addMarkerToGroup(group, coords, html) {
-
-
   var marker = new H.map.Marker(coords);
   // add custom data to the marker
   marker.setData(html);
@@ -38,11 +36,8 @@ function addInfoBubble(map) {
 
     addMarkerToGroup(group, {
         lat: item.position[0],
-        lng: item.position[1],
+        lng: item.position[1]
       },
       `<h4>${item.title}</h4><p>${item.vicinity}</p>`);
-
-
-
   });
 }
