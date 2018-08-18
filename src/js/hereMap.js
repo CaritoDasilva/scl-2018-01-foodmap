@@ -1,6 +1,3 @@
-// window.onload = () => {
-//   findPlaces();
-// };
 let placesList;
 let watchPosition = null;
 var platform = new H.service.Platform({
@@ -87,6 +84,7 @@ searchBtn.addEventListener('click', () => {
       placesList = explorer;
       console.log(placesList);
       addInfoBubble(map);
+
       // recorrer items para la info de los restaurantes
 
     });

@@ -1,26 +1,28 @@
 function addMarkerToGroup(group, coords, html) {
-  placesList.results.items.forEach((item) => {
-    coords = {
-      lng: item.position[1],
-      lat: item.position[0],
-    };
 
-    var marker = new H.map.Marker(coords);
-    // add custom data to the marker
-    marker.setData(html);
-    group.addObject(marker);
-  });
+
+  var marker = new H.map.Marker(coords);
+  // add custom data to the marker
+  marker.setData(html);
+  console.log(html);
+  group.addObject(marker);
+  markers.push(marker);
 }
 
 
 function addInfoBubble(map) {
-
+  markers.forEach((marker) => {
+    map.removeObjects(markers)
+  });
+  markers = [];
   placesList.results.items.forEach((item) => {
     var group = new H.map.Group();
+    console.log(group);
     coords = {
       lng: item.position[1],
       lat: item.position[0],
     };
+
     map.addObject(group);
 
     // add 'tap' event listener, that opens info bubble, to the group
@@ -35,11 +37,13 @@ function addInfoBubble(map) {
       ui.addBubble(bubble);
     }, false);
 
-
     addMarkerToGroup(group, {
-        coords
+        lat: item.position[0],
+        lng: item.position[1],
       },
-      `<b>HOLA MUNDO</b>${item.title}`);
+      `<b></b>${item.title}`);
+    console.log(`${JSON.stringify(coords)},${item.title}`);
+
 
   });
 }
