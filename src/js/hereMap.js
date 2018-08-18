@@ -75,7 +75,7 @@ function updatePosition(event) {
 navigator.geolocation.watchPosition(updatePosition);
 
 searchBtn.addEventListener('click', () => {
-  // console.log(explorer);
+
   map.removeObjects(markers); // remueve marcadores cuando cambias de geolocalización
   markers = []; // almacena los marcadores 
 
@@ -83,6 +83,7 @@ searchBtn.addEventListener('click', () => {
     .then(response => response.json())
     .then(explorer => {
       placesList = explorer;
+
       console.log(placesList);
       addInfoBubble(map);
 
