@@ -78,6 +78,7 @@ searchBtn.addEventListener('click', () => {
   // console.log(explorer);
   map.removeObjects(markers); // remueve marcadores cuando cambias de geolocalización
   markers = []; // almacena los marcadores 
+
   fetch(`https://places.cit.api.here.com/places/v1/discover/search?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${HEREHQcoordinates.lat},${HEREHQcoordinates.lng}&pretty&q=${inputSearching.value}`)
     .then(response => response.json())
     .then(explorer => {

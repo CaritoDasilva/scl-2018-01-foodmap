@@ -11,10 +11,7 @@ function addMarkerToGroup(group, coords, html) {
 
 
 function addInfoBubble(map) {
-  markers.forEach((marker) => {
-    map.removeObjects(markers)
-  });
-  markers = [];
+
   placesList.results.items.forEach((item) => {
     var group = new H.map.Group();
     console.log(group);
