@@ -1,6 +1,7 @@
 // window.onload = () => {
 //   findPlaces();
 // };
+let placesList;
 let watchPosition = null;
 var platform = new H.service.Platform({
   app_id: 'KbDHjNISMuVTjdoKmgxY', // // <-- ENTER YOUR APP ID HERE
@@ -31,7 +32,7 @@ var coordinates = {
 var mapOptions = {
   center: coordinates,
   zoom: 14
-}
+};
 
 // Se inicializa el mapa
 var map = new H.Map(
@@ -39,7 +40,7 @@ var map = new H.Map(
   defaultLayers.normal.map,
   mapOptions);
 
-var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map)); //mueve el mapa, lo hace interactivo
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map)); // mueve el mapa, lo hace interactivo
 // Agrego un marcador
 
 
@@ -76,40 +77,17 @@ function updatePosition(event) {
 }
 navigator.geolocation.watchPosition(updatePosition);
 
-searchBtn.addEventListener("click", () => {
+searchBtn.addEventListener('click', () => {
   // console.log(explorer);
-  map.removeObjects(markers); //remueve marcadores cuando cambias de geolocalización
-  markers = []; //almacena los marcadores 
+  map.removeObjects(markers); // remueve marcadores cuando cambias de geolocalización
+  markers = []; // almacena los marcadores 
   fetch(`https://places.cit.api.here.com/places/v1/discover/search?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${HEREHQcoordinates.lat},${HEREHQcoordinates.lng}&pretty&q=${inputSearching.value}`)
     .then(response => response.json())
     .then(explorer => {
-      //recorrer items para la info de los restaurantes
-      explorer.results.items.forEach((item) => {
-        console.log(item);
+      placesList = explorer;
+      console.log(placesList);
+      addInfoBubble(map);
+      // recorrer items para la info de los restaurantes
 
-
-        let coords = {
-          lng: item.position[1],
-          lat: item.position[0],
-        }
-
-        let id = {
-          id: item.id
-        }
-        console.log(id);
-
-        let marker = new H.map.Marker(coords, id);
-        markers.push(marker);
-        map.addObject(marker);
-        console.log(marker);
-
-        // Create an info bubble object at a specific geographic location:
-        var bubble = new H.ui.InfoBubble(coords, {
-          content: '<b>Hello World!</b>'
-        });
-
-        // Add info bubble to the UI:
-        ui.addBubble(bubble);
-      });
-    })
+    });
 });
