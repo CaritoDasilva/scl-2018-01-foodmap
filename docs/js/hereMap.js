@@ -1,17 +1,16 @@
 let placesList = null;
 let watchPosition = null;
+let HEREHQcoordinates = null;
+let map;
+let markers;
+
 
 var platform = new H.service.Platform({
   app_id: 'KbDHjNISMuVTjdoKmgxY', // // <-- ENTER YOUR APP ID HERE
   app_code: 'XeXXApChvfAPneASBW_6zg', // <-- ENTER YOUR APP CODE HERE
 });
 
-let HEREHQcoordinates = null;
 
-// Inicializa el mapa
-
-let defaultLayers = platform.createDefaultLayers();
-let mapPlaceholder = document.getElementById('mapContainer');
 
 
 // Ajusta el mapa al tamaño de la pantalla
@@ -32,20 +31,27 @@ var mapOptions = {
   zoom: 14
 };
 
-// Se inicializa el mapa
-var map = new H.Map(
-  mapPlaceholder,
-  defaultLayers.normal.map,
-  mapOptions);
 
-var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map)); // mueve el mapa, lo hace interactivo
+let defaultLayers = platform.createDefaultLayers();
+let mapPlaceholder = document.getElementById('mapContainer');
+
+function initMap() {
+  // Se inicializa el mapa
+  // Inicializa el mapa
+  map = new H.Map(
+    mapPlaceholder,
+    defaultLayers.normal.map,
+    mapOptions);
+
+  var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map)); // mueve el mapa, lo hace interactivo
+  initUi();
+  addingMarkers();
+}
 // Agrego un marcador
 
 
 var iconUrl = '../css/imagenes/if_Map_-_Location_Solid_Style_26_2216336.png';
 
-// Se inicializa la UI
-var ui = H.ui.UI.createDefault(map, defaultLayers, 'es-ES');
 
 var iconOptions = {
   // The icon's size in pixel:
@@ -59,9 +65,18 @@ var markerOptions = {
   icon: new H.map.Icon(iconUrl, iconOptions)
 };
 
-var markers = [];
-var marker = new H.map.Marker(coordinates, markerOptions);
-map.addObject(marker);
+function initUi() {
+  // Se inicializa la UI
+  var ui = H.ui.UI.createDefault(map, defaultLayers, 'es-ES');
+}
+
+function addingMarkers() {
+  var markers = [];
+  var marker = new H.map.Marker(coordinates, markerOptions);
+  map.addObject(marker);
+  map.removeObjects(markers); // remueve marcadores cuando cambias de geolocalización
+  markers = []; // almacena los marcadores
+}
 
 function updatePosition(event) {
   HEREHQcoordinates = {
@@ -76,18 +91,15 @@ function updatePosition(event) {
 navigator.geolocation.watchPosition(updatePosition);
 
 searchBtn.addEventListener('click', () => {
+  addingMarkers();
 
-  map.removeObjects(markers); // remueve marcadores cuando cambias de geolocalización
-  markers = []; // almacena los marcadores 
 
-  fetch(`http://places.cit.api.here.com/places/v1/discover/search?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${HEREHQcoordinates.lat},${HEREHQcoordinates.lng}&pretty&q=${inputSearching.value}`)
+  fetch(`https://places.cit.api.here.com/places/v1/discover/search?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${HEREHQcoordinates.lat},${HEREHQcoordinates.lng}&pretty&q=${inputSearching.value}`)
     .then(response => response.json())
     .then(explorer => {
       placesList = explorer;
 
       console.log(placesList);
       addInfoBubble(map);
-
-
     });
 });
