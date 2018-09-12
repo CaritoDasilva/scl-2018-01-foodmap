@@ -8,14 +8,13 @@ let markers;
 var platform = new H.service.Platform({
   app_id: 'KbDHjNISMuVTjdoKmgxY', // // <-- ENTER YOUR APP ID HERE
   app_code: 'XeXXApChvfAPneASBW_6zg', // <-- ENTER YOUR APP CODE HERE
+  useHTTPS: true
 });
-
-
 
 
 // Ajusta el mapa al tamaño de la pantalla
 
-window.addEventListener('resize', function () {
+window.addEventListener('resize', function() {
   map.getViewPort().resize();
 });
 
