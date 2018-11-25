@@ -6,8 +6,8 @@ let markers;
 
 
 var platform = new H.service.Platform({
-  app_id: 'KbDHjNISMuVTjdoKmgxY', // // <-- ENTER YOUR APP ID HERE
-  app_code: 'XeXXApChvfAPneASBW_6zg', // <-- ENTER YOUR APP CODE HERE
+  app_id: '5juCnYkKrxY6fDsLciaz', // // <-- ENTER YOUR APP ID HERE
+  app_code: 'ReOKXUXIoviZ2qsPWn16_g', // <-- ENTER YOUR APP CODE HERE
   useHTTPS: true
 });
 
@@ -93,7 +93,7 @@ searchBtn.addEventListener('click', () => {
   addingMarkers();
 
 
-  fetch(`https://places.cit.api.here.com/places/v1/discover/search?app_id=wmLh9WIylelp0l6KdZF9&app_code=vXvdui0ls0FvJ0DrA7PY5g&at=${HEREHQcoordinates.lat},${HEREHQcoordinates.lng}&pretty&q=${inputSearching.value}`)
+  fetch(`https://places.cit.api.here.com/places/v1/discover/search?app_id=5juCnYkKrxY6fDsLciaz&app_code=ReOKXUXIoviZ2qsPWn16_g&at=${HEREHQcoordinates.lat},${HEREHQcoordinates.lng}&pretty&q=${inputSearching.value}`)
     .then(response => response.json())
     .then(explorer => {
       placesList = explorer;
